@@ -25,7 +25,7 @@ if (isset($_POST) && !empty($_POST)){
 		$dbParams = array (
 		  'hostname' => 'localhost',
 		  'username' => 'root',
-		  'password' => 'shahim15',
+		  'password' => '',
 		  'database' => 'php-course'
 		);
 
