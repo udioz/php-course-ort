@@ -46,7 +46,8 @@ if (isset($_POST) && !empty($_POST)){
 
 $query = "select *,(select count(*) from pets where owner_id=o.id) as pets_count
 		  from owners as o";
-$res = $mysqli->query($query);
+$selectResult = $mysqli->query($query);
+
 ?>
 
 
@@ -84,19 +85,24 @@ $res = $mysqli->query($query);
 	</tr>
 
 <?php 
-	$bgColor = "fff";
-	while ($row = $res->fetch_assoc()) { 
-		($bgColor == "fff") ? $bgColor = "33ffdd" : $bgColor = "fff";
-	?>
-	<tr style="background-color:<?php echo $bgColor ?>;">
-		<td><?php echo $row['first_name'] ?></td>
-		<td><?php echo $row['last_name'] ?></td>
-		<td><?php echo $row['email'] ?></td>
-		<td><?php echo $row['phone_number'] ?></td>
-		<td><?php echo $row['pets_count'] ?></td>
-		<td><a href="pets.php?owner_id=<?php echo $row['id']?>&owner_name=<?php echo urlencode($row['first_name'] . " " . $row['last_name'])?>">Add a Pet</a></td>
-		<td><a href="deleteOwner.php?owner_id=<?php echo $row['id']?>&owner_name=<?php echo urlencode($row['first_name'] . " " . $row['last_name'])?>">Delete Owner</a></td>
-	</tr>
-<?php } ?>
-
+	if ($selectResult) {
+		$bgColor = "fff";
+		while ($row = $selectResult->fetch_assoc()) { 
+			($bgColor == "fff") ? $bgColor = "33ffdd" : $bgColor = "fff";
+		?>
+		<tr style="background-color:<?php echo $bgColor ?>;">
+			<td><?php echo $row['first_name'] ?></td>
+			<td><?php echo $row['last_name'] ?></td>
+			<td><?php echo $row['email'] ?></td>
+			<td><?php echo $row['phone_number'] ?></td>
+			<td><?php echo $row['pets_count'] ?></td>
+			<td><a href="pets.php?owner_id=<?php echo $row['id']?>&owner_name=<?php echo urlencode($row['first_name'] . " " . $row['last_name'])?>">Add a Pet</a></td>
+			<td><a href="deleteOwner.php?owner_id=<?php echo $row['id']?>&owner_name=<?php echo urlencode($row['first_name'] . " " . $row['last_name'])?>">Delete Owner</a></td>
+		</tr>
+	<?php } ?>
+<?php } else { ?>
+			<tr>
+				<td colspan="3">No Owners Yet....</td>
+			</tr>
+		<?php } ?>
 </table>
