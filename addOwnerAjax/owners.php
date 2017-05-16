@@ -2,7 +2,7 @@
 ?>
 <html>
 <head>
-	<script src="../js/jquery.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script>
 		function loadOwnersList( jQuery ) {
 			// Fire off the request
