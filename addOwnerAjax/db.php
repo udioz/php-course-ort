@@ -2,7 +2,7 @@
 	$dbParams = array (
 	  'hostname' => 'localhost',
 	  'username' => 'root',
-	  'password' => 'shahim15',
+	  'password' => '',
 	  'database' => 'php-course'
 	);
 
